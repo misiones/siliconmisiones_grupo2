@@ -1,0 +1,44 @@
+
+body {
+  border:2;
+  background-color: lightblue;
+
+}
+h1{
+    color: green;
+      font-size: 70px;
+     border: 5px solid black;
+     text-align: center;
+      }
+p    {
+      background-color:Tomato;
+      text-align: center;
+      border: 3px solid red;
+      }
+
+h4{
+    color: green;
+     font-size: 30px;
+     border: 5px solid black;
+     text-align: center;
+     text-decoration: underline;
+      }
+
+.caja-lista{
+     border: 5x dashed black;
+     background: yellow;
+     font-family:monospace;
+     }
+
+.titulo{
+	color:red;
+	font-size:60px;
+}
+a{
+	display:block;
+}
+.imagen{
+	position:absolute;
+	top:10px;
+	right:10px;
+}
