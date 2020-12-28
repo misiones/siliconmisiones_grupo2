@@ -34,19 +34,17 @@ CREATE TABLE `clientes` (
   `dni` int(11) DEFAULT NULL,
   `telefono` varchar(20) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
-  `direccion` varchar(45) DEFAULT NULL,
-  `localidad` varchar(45) DEFAULT NULL,
-  `provincia` varchar(45) DEFAULT NULL,
-  `pais` varchar(45) DEFAULT NULL
+  `direccion` varchar(150) DEFAULT NULL,
+ 
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `clientes`
 --
 
-INSERT INTO `clientes` (`idclientes`, `nombreyap`, `dni`, `telefono`, `email`, `direccion`, `localidad`, `provincia`, `pais`) VALUES
-(1, 'Carlos Duen', 24567432, '3764899865', 'carlosduen@gmail.com', 'La Plata 4567', 'Carlos Paz', 'Córdoba', 'Argentina'),
-(2, 'Laura Villalva', 23658432, '3764593212', 'lauravill@gmail.com', 'Panamá 5434', 'La Plata', 'Buenos Aires', 'Argentina');
+INSERT INTO `clientes` (`idclientes`, `nombreyap`, `dni`, `telefono`, `email`, `direccion`) VALUES
+(1, 'Carlos Duen', 24567432, '3764899865', 'carlosduen@gmail.com', 'La Plata 4567'),
+(2, 'Laura Villalva', 23658432, '3764593212', 'lauravill@gmail.com', 'Panamá 5434');
 
 -- --------------------------------------------------------
 
