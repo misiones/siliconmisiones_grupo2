@@ -40,7 +40,7 @@
     </nav>
     <section id="container">
         <h1>Lista de clientes</h1> 
-        <a href="" class="btn btn-primary">Agregar cliente</a>
+        <a href="editclientes.php" class="btn btn-primary">Agregar cliente</a>
         <table class="table table-bordered">
             <tr>
                 <th>Nombre</th>
@@ -54,8 +54,8 @@
             include 'conectar3.php';
             $query=mysqli_query($mysqli, "SELECT nombreyap, dni, telefono, email, direccion FROM uv028960_reservas.clientes;");
             $resultado =mysqli_num_rows($query);
-            if($resultado >0){
-                while($data=mysqli_fetch_array($query)){
+
+            while($data=mysqli_fetch_array($query)){
             ?>
 
             <tr>
@@ -65,13 +65,12 @@
                 <td><?php echo $data["email"];?></td>
                 <td><?php echo $data["direccion"];?></td>
                 <td>
-                <a class="btn btn-success" href="#">Editar</a>
-                <a class="btn btn-danger" href="#">Eliminar</a>
+                <a class="btn btn-success" href="editclientes.php">Editar</a>
+                <a class="btn btn-danger" href="delete.php?dni=<?php echo $data["dni"]?>">Eliminar</a>
                 </td>
             </tr>
             <?php
                 }
-            }
             ?>
         </table>
     </section>
