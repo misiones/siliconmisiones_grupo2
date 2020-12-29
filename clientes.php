@@ -40,7 +40,7 @@
     </nav>
     <section id="container">
         <h1>Lista de clientes</h1> 
-        <a href="editclientes.php" class="btn btn-primary">Agregar cliente</a>
+        <a href="addclientes.php" class="btn btn-primary">Agregar cliente</a>
         <table class="table table-bordered">
             <tr>
                 <th>Nombre</th>
