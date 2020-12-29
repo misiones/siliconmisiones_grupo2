@@ -52,7 +52,7 @@
             </tr>
             <?php
             include 'conectar3.php';
-            $query=mysqli_query($mysqli, "SELECT nombreyap, dni, telefono, email, direccion FROM uv028960_reservas.clientes;");
+            $query=mysqli_query($mysqli, "SELECT * FROM uv028960_reservas.clientes;");
             $resultado =mysqli_num_rows($query);
 
             while($data=mysqli_fetch_array($query)){
@@ -65,7 +65,7 @@
                 <td><?php echo $data["email"];?></td>
                 <td><?php echo $data["direccion"];?></td>
                 <td>
-                <a class="btn btn-success" href="editclientes.php">Editar</a>
+                <a class="btn btn-success" href="editarclientes.php?id=<?php echo $data["idclientes"]?>">Editar</a>
                 <a class="btn btn-danger" href="delete.php?dni=<?php echo $data["dni"]?>">Eliminar</a>
                 </td>
             </tr>
