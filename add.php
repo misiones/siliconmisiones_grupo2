@@ -54,9 +54,6 @@
 
 	<div class="container">
 		<div class="content">
-			 <div style='border-top: dotted 1px #00000;'>
-                <button type="button" class="btn btn-warning"><a href="add.php">AGREGAR SERVICIO</a></button>
-            </div>
 			<h2>Agregar servicios</h2>
 			<hr />
  
@@ -65,20 +62,19 @@
 				$idservicios	     = mysqli_real_escape_string($mysqli,(strip_tags($_POST["idservicios"],ENT_QUOTES))); 
 				$descripcion	     = mysqli_real_escape_string($mysqli,(strip_tags($_POST["descripcion"],ENT_QUOTES))); 
 				
-			
  
 				$ser = mysqli_query($mysqli, "SELECT * FROM servicios WHERE idservicios='$idservicios'");
 				if(mysqli_num_rows($ser) == 0){
 						$insert = mysqli_query($mysqli, "INSERT INTO servicios(idservicios, descripcion)
 															VALUES('$idservicios','$descripcion')") or die(mysqli_error());
 						if($insert){
-							echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Los datos han sido guardados con éxito.</div>';
+							echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Los datos han sido guardados con éxito.</div>';
 						}else{
 							echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. No se pudo guardar los datos !</div>';
 						}
 					 
 				}else{
-					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. código exite!</div>';
+					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. Ese código existe!</div>';
 				}
 			}
 			?>
@@ -101,7 +97,7 @@
 					<label class="col-sm-3 control-label">&nbsp;</label>
 					<div class="col-sm-6">
 						<input type="submit" name="add" class="btn btn-sm btn-primary" value="Guardar datos">
-						<a href="index.php" class="btn btn-sm btn-danger">Cancelar</a>
+						<a href="servicios.php" class="btn btn-sm btn-danger">Cancelar</a>
 					</div>
 				</div>
 			</form>

@@ -55,10 +55,7 @@
 
 	<div class="container">
 		<div class="content">
-			<div class="pull-right">
-								<a href="registro.php" class="btn btn-sm btn-primary">AGREGAR SERVICIO</a>
-                <!--<button type="button" class="btn btn-warning"><a href="add.php">AGREGAR SERVICIO</a></button>-->
-            </div>
+			
 			<h2>Editar servicios</h2>
 			<hr />
 			
@@ -75,23 +72,23 @@
 				$idservicios             = mysqli_real_escape_string($mysqli,(strip_tags($_POST["idservicios"],ENT_QUOTES))); 
 				$descripcion             = mysqli_real_escape_string($mysqli,(strip_tags($_POST["descripcion"],ENT_QUOTES))); 
 				
-				$update = mysqli_query($mysqli, "UPDATE servicios SET idservicios='$idservicios', descripcion='$descripcion' WHERE idservicios='$idservicios'") or die(mysqli_error());
+				$update = mysqli_query($mysqli, "UPDATE servicios SET  descripcion='$descripcion' WHERE idservicios='$idservicios'") or die(mysqli_error());
 				if($update){
-					header("Location: edit.php?id=".$idservicios."&pesan=sukses");
+					//header("Location: edit.php?id=".$idservicios."&pesan=si");
+					echo "<script>alert('Los datos han sido actualizados!'); window.location = 'servicios.php'</script>";
 				}else{
-					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error, no se pudo guardar los datos.</div>';
+					echo "<script>alert('Error, no se pudo actualizar los datos'); window.location = 'servicios.php'</script>";
+                   //echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error, no se pudo guardar los datos.</div>';
 				}
 			}
 			
-			if(isset($_GET['pesan']) == 'sukses'){
-				echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Los datos han sido guardados con éxito.</div>';
-			}
+			
 			?>
 			<form class="form-horizontal" action="" method="post">
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Código</label>
 					<div class="col-sm-2">
-						<input type="text" name="idservicios" value="<?php echo $row ['idservicios']; ?>" class="form-control" placeholder="Servicio" required>
+						<input type="text" name="idservicios" value="<?php echo $row ['idservicios']; ?>" class="form-control" placeholder="Servicio" class="form-control span8 tip" readonly="readonly">
 					</div>
 				</div>
 				<div class="form-group">
@@ -105,7 +102,7 @@
 					<label class="col-sm-3 control-label">&nbsp;</label>
 					<div class="col-sm-6">
 						<input type="submit" name="save" class="btn btn-sm btn-primary" value="Guardar datos">
-						<a href="index.php" class="btn btn-sm btn-danger">Cancelar</a>
+						<a href="servicios.php" class="btn btn-sm btn-danger">Cancelar</a>
 					</div>
 				</div>
 			</form>

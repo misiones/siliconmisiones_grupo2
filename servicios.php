@@ -9,6 +9,8 @@
  
 	<!-- Bootstrap -->
 	<link href="bootstrap-4.5.3-dist/css/bootstrap.min.css" rel="stylesheet">
+  <link type="text/css" href="https://fontawesome.com/v3.2.1/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+            
  
 	<style>
 		.content {
@@ -62,7 +64,22 @@
                 <a href="add.php" class="btn btn-sm btn-dark">AGREGAR SERVICIO</a>
                 <!--<button type="button" class="btn btn-warning"><a href="add.php">AGREGAR SERVICIO</a></button>-->
             </div>
-          
+           <?php
+               if(isset($_GET['action']) == 'delete'){
+                  $id_delete = intval($_GET['idservicios']);
+                  $query = mysqli_query($mysqli, "SELECT * FROM servicios WHERE idservicios='$id_delete'");
+                  if(mysqli_num_rows($query) == 0){
+                  echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> No se encontraron datos.</div>';
+                   }else{
+                   $delete = mysqli_query($mysqli, "DELETE FROM servicios WHERE idservicios='$id_delete'");
+                   if($delete){
+                   echo '<div class="alert alert-primary alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>  Los datos han sido eliminados correctamente.</div>';
+                   }else{
+                   echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Error, no se pudo eliminar los datos.(hay tablas relacionadas)</div>';
+                   }
+                  }
+                }
+              ?>
 			<h2>Servicios</h2>
             <hr />
 			
@@ -136,9 +153,12 @@
                                         <div class="btn-group mr-5" role="group">
                                           <button type='button' class="btn btn-outline-success my-2 my-sm-0"> 
                                            <?php
-                                           echo "<a class='\page-link\' href=eliminar.php?id=".$fila['idservicios'].">ELIMINAR</a>";
+                                           echo "<a href=servicios.php?action=delete&idservicios=".$fila['idservicios']."data-toggle='tooltip' title='Eliminar' class='btn btn-sm btn-danger'><i class='menu-icon icon-trash'></i> </a>";
                                           ?>
                                           </button>
+
+                                         
+  
                                            
                                         </div>
                                     </div>
