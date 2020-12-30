@@ -44,15 +44,15 @@ include("menu.php");
 					<div class="col-sm-4">
 						<div class="form-check form-check-inline">
 				          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-				          <label class="form-check-label" for="inlineRadio1">En proceso</label>
+				          <label class="form-check-label" for="inlineRadio1">1-En proceso</label>
 				       </div>
 				       <div class="form-check form-check-inline">
 				          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-				          <label class="form-check-label" for="inlineRadio2">Confirmado</label>
+				          <label class="form-check-label" for="inlineRadio2">2-Confirmado</label>
 				       </div>
 				       <div class="form-check form-check-inline">
 				          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" disabled>
-				          <label class="form-check-label" for="inlineRadio3">Cancelado (disabled)</label>
+				          <label class="form-check-label" for="inlineRadio3">3-Cancelado (disabled)</label>
 				       </div>
 					</div>
 				</div>
@@ -83,7 +83,14 @@ include("menu.php");
                  </select>
 	        		</div>
 				</div>
-			
+				<div class="form-group">
+			    <label class="col-sm-3 control-label" for="exampleFormControlSelect1">Cargar Detalle</label>
+					<div class="col-sm-4">
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Mostrar Modal
+</button>			        </div>
+				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">&nbsp;</label>
 					<div class="col-sm-6">
