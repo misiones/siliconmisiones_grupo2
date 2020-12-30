@@ -117,7 +117,7 @@
                 <div class="form-group">
 					<label class="col-sm-3 control-label">Email</label>
 					<div class="col-sm-4">
-						<input type="text" name="email" value="<?php echo $row ['email']; ?>" class="form-control" placeholder="email" required>
+						<input type="email" name="email" value="<?php echo $row ['email']; ?>" class="form-control" placeholder="email" required>
 					</div>
                 </div>
                 <div class="form-group">
