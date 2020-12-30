@@ -1,9 +1,6 @@
 <?php include("conectar3.php");
 $pagina="Listar reservas";
 include("head.php");
-?>
-<body>
-<?php
 include("menu.php");
 ?>
   
