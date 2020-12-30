@@ -99,14 +99,18 @@ $sentencia = $mysqli ->prepare("SELECT reservas.*,clientes.nombreyap, usuario.no
                               {
                                 $estado = "confirmado";
                               }
+                              else if ($fila['estado']== 3)
+                              {
+                                $estado = "cancelado";
+                              }
                               echo "<td scope='row'>".$fila['idreservas']."</td>
                                     <td>".$fila['fecha']."</td>
                                     <td>".$fila['fechadesde']."</td>
                                     <td>".$fila['fechahasta']."</td>
                                     <td>".utf8_encode($fila['comentario'])."</td>
                                     <td>".$estado."</td>
-                                    <td>".$fila['nombreyap']."</td>
-                                    <td>".$fila['nombre']."</td>";
+                                    <td>".utf8_encode($fila['nombreyap'])."</td>
+                                    <td>".utf8_encode($fila['nombre'])."</td>";
                                 ?>
                                     <td>
                                     <div class="btn-toolbar" role="toolbar">
@@ -122,6 +126,13 @@ $sentencia = $mysqli ->prepare("SELECT reservas.*,clientes.nombreyap, usuario.no
                                            <?php
                                         echo "<a href=reservas.php?action=delete&id=".$fila['idreservas'].">BORRAR</a>";
                                           ?> </button>
+                                        </div>
+                                         <div class="btn-group mr-5" role="group">
+                                          <button type='button' class="btn btn-outline-danger my-2 my-sm-0"> 
+                                          <?php
+                                          echo "<a class='\page-link\' href=detallereservas.php?id=".$fila['idreservas'].">VER DETALLE</a>
+                                          </button>";
+                                          ?> 
                                         </div>
                                     </div>
                                    </td>
