@@ -10,16 +10,15 @@ include("menu.php");
  
  
 			<form class="form-horizontal" action="" method="post">
-				<div class="form-group">
-					<label class="col-sm-3 control-label">Código</label>
-					<div class="col-sm-2">
-						<input type="text" name="idreservas" class="form-control" placeholder="Código" placeholder="Fecha" class="form-control span8 tip" readonly="readonly">
-					</div>
-				</div>
+			
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Fecha</label>
 					<div class="col-sm-4">
-					<input type="datetime-local" name="fecha" class="form-control" value="<?php echo date("d:m:Y\ H:i:s") ?>"placeholder="Fecha" class="form-control span8 tip" readonly="readonly">
+						<?php
+						 $Hora = date('H') - 3;?>
+						<input type="datetime-local"  value="<?php echo date('d-m-Y \ '.$Hora.':i:s'); ?>" class="form-control" name="fecha" placeholder="Fecha" class="form-control span8 tip" readonly="readonly">
+					
+					
 		        </div>
 				</div>
 				<div class="form-group">
@@ -65,7 +64,7 @@ include("menu.php");
                    <?php
                    $query = $mysqli -> query ("SELECT * FROM clientes");
                    while ($valores = mysqli_fetch_array($query)) {
-                    echo '<option value="'.$valores[idclientes].'">'.$valores[nombreyap].'</option>';
+                    echo '<option value="'.$valores[idclientes].'">'.utf8_encode($valores[nombreyap]).'</option>';
                    }
                   ?>
                  </select>
@@ -78,7 +77,7 @@ include("menu.php");
                    <?php
                    $query = $mysqli -> query ("SELECT * FROM usuario");
                    while ($valores = mysqli_fetch_array($query)) {
-                    echo '<option value="'.$valores[idusuario].'">'.$valores[nombre].'</option>';
+                    echo '<option value="'.$valores[idusuario].'">'.utf8_encode($valores[nombre]).'</option>';
                    }
                   ?>
                  </select>
