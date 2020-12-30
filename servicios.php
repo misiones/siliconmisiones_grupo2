@@ -1,12 +1,8 @@
 <?php include("conectar3.php");
 $pagina="Listar servicios";
 include("head.php");
-?>
-<body>
-<?php
 include("menu.php");
 ?>
-  
   
    
 	<div class="container">
