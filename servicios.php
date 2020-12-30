@@ -151,9 +151,10 @@
                                           ?> 
                                         </div>
                                         <div class="btn-group mr-5" role="group">
-                                          <button type='button' class="btn btn-outline-success my-2 my-sm-0"> 
+                                          <button type='button' class="btn btn-outline-warning my-2 my-sm-0"> 
                                            <?php
-                                           echo "<a href=servicios.php?action=delete&idservicios=".$fila['idservicios']."data-toggle='tooltip' title='Eliminar' class='btn btn-sm btn-danger'><i class='fas fa-trash-alt'></i></a>";
+                                           echo "<a href=servicios.php?action=delete&idservicios=".$fila['idservicios'].">ELIMINAR</a>";
+                                          // echo "<a href=servicios.php?action=delete&idservicios=".$fila['idservicios']."data-toggle='tooltip' title='Eliminar' class='btn btn-sm btn-danger'><i class='fas fa-trash-alt'></i></a>";
                                           ?>
                                           </button>
 
