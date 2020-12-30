@@ -38,7 +38,7 @@
     </div>
 	
     </nav>
-    <section id="container">
+    <div id="container">
         <h1>Lista de clientes</h1> 
         <a href="editclientes.php" class="btn btn-primary">Agregar cliente</a>
         <table class="table table-bordered">
@@ -66,13 +66,13 @@
                 <td><?php echo $data["direccion"];?></td>
                 <td>
                 <a class="btn btn-success" href="editarclientes.php?id=<?php echo $data["idclientes"]?>">Editar</a>
-                <a class="btn btn-danger" href="delete.php?dni=<?php echo $data["dni"]?>">Eliminar</a>
+                <a class="btn btn-danger" href="delete.php?idclientes=<?php echo $data["idclientes"]?>">Eliminar</a>
                 </td>
             </tr>
             <?php
                 }
             ?>
         </table>
-    </section>
+            </div>
 </body>
 </html>
