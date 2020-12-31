@@ -1,26 +1,24 @@
 <?php include("conectar3.php");
-$pagina="Listar servicios";
+$pagina="Listar reservas";
 include("head.php");
 include("menu.php");
 ?>
   
-   
 	<div class="container">
 		<div class="content">
        <div class="panel panel_default">      
 
             <div class="pull-right">
-                <a href="add.php" class="btn btn-sm btn-dark">AGREGAR SERVICIO</a>
-                <!--<button type="button" class="btn btn-warning"><a href="add.php">AGREGAR SERVICIO</a></button>-->
+                <a href="addreservas.php" class="btn btn-sm btn-dark">AGREGAR RESERVAS</a>
             </div>
            <?php
                if(isset($_GET['action']) == 'delete'){
-                  $id_delete = intval($_GET['idservicios']);
-                  $query = mysqli_query($mysqli, "SELECT * FROM servicios WHERE idservicios='$id_delete'");
+                  $id_delete = intval($_GET['id']);
+                  $query = mysqli_query($mysqli, "SELECT * FROM reservas WHERE idreservas='$id_delete'");
                   if(mysqli_num_rows($query) == 0){
                   echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> No se encontraron datos.</div>';
                    }else{
-                   $delete = mysqli_query($mysqli, "DELETE FROM servicios WHERE idservicios='$id_delete'");
+                   $delete = mysqli_query($mysqli, "DELETE FROM reservas WHERE idreservas='$id_delete'");
                    if($delete){
                    echo '<div class="alert alert-primary alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>  Los datos han sido eliminados correctamente.</div>';
                    }else{
@@ -29,7 +27,7 @@ include("menu.php");
                   }
                 }
               ?>
-			<h2>Servicios</h2>
+			<h2>Reservas</h2>
             <hr />
 			
           <div class="table-responsive">
@@ -37,7 +35,13 @@ include("menu.php");
             <thead>
             <tr>
             <th scope="col">Codigo</th>
-            <th scope="col">Descripcion</th>
+            <th scope="col">Fecha de reserva</th>
+            <th scope="col">Fecha Entrada</th>
+            <th scope="col">Fecha Salida</th>
+            <th scope="col">Comentario</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Cliente</th>
+            <th scope="col">Usuario</th>
             <th scope="col">Opciones</th>
             </tr>
             </thead>
@@ -64,7 +68,7 @@ include("menu.php");
                     $paginaSiguiente = $paginaNro + 1;
                 
                     //############## REALIZO LA CONSULTA PARA SABER CUANTOS ELEMENTOS HAY EN TOTAL ##############
-                    $sentencia = $mysqli->prepare("SELECT COUNT(*) as cantidad FROM servicios");
+                    $sentencia = $mysqli->prepare("SELECT COUNT(*) as cantidad FROM reservas");
                     $sentencia->execute();
                     $resultado = $sentencia->get_result();
                     $fila = $resultado->fetch_assoc();
@@ -76,7 +80,8 @@ include("menu.php");
                     $totalPaginas = ceil($cantidadTotalElementos / $cantidadMaximaElementosPagina);
 
                     //############## REALIZO LA CONSULTA PARA OBTENER SOLO LOS ELEMENTOS DE LA PAGINA ACTUAL ##############
-                    $sentencia = $mysqli->prepare("SELECT * FROM servicios LIMIT $offset, $cantidadMaximaElementosPagina");
+                   
+$sentencia = $mysqli ->prepare("SELECT reservas.*,clientes.nombreyap, usuario.nombre FROM reservas INNER JOIN clientes ON clientes.idclientes = reservas.clientes_idclientes INNER JOIN usuario ON usuario.idusuario = reservas.usuario_idusuario LIMIT $offset, $cantidadMaximaElementosPagina");
                      //############## REALIZO LA CONSULTA PARA OBTENER SOLO LOS ELEMENTOS DE LA PAGINA ACTUAL ##############
                    
                     $sentencia->execute();
@@ -87,29 +92,47 @@ include("menu.php");
                     {         ?>
                               <tr>  
                               <?php
-                              echo "<td scope='row'>".$fila['idservicios']."</td>
-                                    <td>".$fila['descripcion']."</td>";
+                              if ($fila['estado']== 1)
+                              {
+                                $estado = "en proceso";
+                              }else if ($fila['estado']== 2)
+                              {
+                                $estado = "confirmado";
+                              }
+                              else if ($fila['estado']== 3)
+                              {
+                                $estado = "cancelado";
+                              }
+                              echo "<td scope='row'>".$fila['idreservas']."</td>
+                                    <td>".$fila['fecha']."</td>
+                                    <td>".$fila['fechadesde']."</td>
+                                    <td>".$fila['fechahasta']."</td>
+                                    <td>".utf8_encode($fila['comentario'])."</td>
+                                    <td>".$estado."</td>
+                                    <td>".utf8_encode($fila['nombreyap'])."</td>
+                                    <td>".utf8_encode($fila['nombre'])."</td>";
                                 ?>
                                     <td>
                                     <div class="btn-toolbar" role="toolbar">
                                        <div class="btn-group mr-5" role="group">
-                                          <button type='button' class="btn btn-outline-success my-2 my-sm-0"> 
+                                          <button type='button' class="btn btn-outline-warning my-2 my-sm-0"> 
                                           <?php
-                                          echo "<a class='\page-link\' href=edit.php?id=".$fila['idservicios'].">EDITAR</a>
+                                          echo "<a class='\page-link\' href=editreservas.php?id=".$fila['idreservas'].">EDITAR</a>
                                           </button>";
                                           ?> 
                                         </div>
                                         <div class="btn-group mr-5" role="group">
-                                          <button type='button' class="btn btn-outline-warning my-2 my-sm-0"> 
+                                          <button type='button' class="btn btn-outline-success my-2 my-sm-0"> 
                                            <?php
-                                           echo "<a href=servicios.php?action=delete&idservicios=".$fila['idservicios'].">ELIMINAR</a>";
-                                          // echo "<a href=servicios.php?action=delete&idservicios=".$fila['idservicios']."data-toggle='tooltip' title='Eliminar' class='btn btn-sm btn-danger'><i class='fas fa-trash-alt'></i></a>";
-                                          ?>
-                                          </button>
-
-                                         
-  
-                                           
+                                        echo "<a href=reservas.php?action=delete&id=".$fila['idreservas'].">BORRAR</a>";
+                                          ?> </button>
+                                        </div>
+                                         <div class="btn-group mr-5" role="group">
+                                          <button type='button' class="btn btn-outline-danger my-2 my-sm-0"> 
+                                          <?php
+                                          echo "<a class='\page-link\' href=detallereservas.php?id=".$fila['idreservas'].">VER DETALLE</a>
+                                          </button>";
+                                          ?> 
                                         </div>
                                     </div>
                                    </td>
@@ -165,7 +188,6 @@ include("menu.php");
         </nav>
     </div>
     </div>
-
-<?php
+       <?php
 include("pie.php");
 ?>
