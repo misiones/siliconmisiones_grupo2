@@ -11,6 +11,8 @@ include("menu.php");
                 <a href="addclientes.php" class="btn btn-sm btn-dark">AGREGAR SERVICIO</a>
                 <!--<button type="button" class="btn btn-warning"><a href="add.php">AGREGAR SERVICIO</a></button>-->
             </div>
+	<h2>Clientes</h2>
+        <hr />
         <table class="table table-bordered">
             <tr>
                 <th>Nombre</th>
