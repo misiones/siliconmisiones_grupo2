@@ -6,86 +6,146 @@ include("menu.php");
   <div class="container">
        <div class="content">
            <div class="panel panel_default">      
-                <div class="pull-right">
-                     <a href="addclientes.php" class="btn btn-sm btn-dark">AGREGAR SERVICIO</a>
-                </div>
-	       <h2>Clientes</h2>
-               <hr />
-               <div class="table-responsive">
-                    <table class="table table-sm table-condensed table-bordered table-hover">
-			<thead>
-			<tr>
-				<th scope="col">Nombre</th>
-				<th scope="col">DNI</th>
-				<th scope="col">Número de teléfono</th>
-				<th scope="col">Email</th>
-				<th scope="col">Dirección</th>
-				<th scope="col">Opciones</th>
-			</tr>
-		        </thead>
-			<?php
-                        $query=mysqli_query($mysqli, "SELECT * FROM uv028960_reservas.clientes;");
-                        $resultado =mysqli_num_rows($query);
+                        <div class="pull-right">
+                             <a href="addclientes.php" class="btn btn-sm btn-dark">AGREGAR CLIENTE</a>
+                        </div>
+        	       <h2>Clientes</h2>
+                       <hr />
+                    <div class="table-responsive">
+                        <table class="table table-sm table-condensed table-bordered table-hover">
+                		  <thead>
+                			<tr>
+                				<th scope="col">Nombre</th>
+                				<th scope="col">DNI</th>
+                				<th scope="col">Número de teléfono</th>
+                				<th scope="col">Email</th>
+                				<th scope="col">Dirección</th>
+                				<th scope="col">Opciones</th>
+                			</tr>
+                		  </thead>
+                          <TBODY>
+                                <?php
+                                    //############## SI HUBO UN METODO GET Y ME TRAJO EL NUMERO DE PAGINA, LO USO. SI NO, ESTABLEZCO UNO POR DEFECTO (EMPEZANDO DEL PRINCIPIO) ##############
+                                    if (isset($_GET['pagina_nro']) && $_GET['pagina_nro'] != "") 
+                                    {
+                                        $paginaNro = $_GET['pagina_nro'];
+                                    } 
+                                    else 
+                                    {
+                                        $paginaNro = 1;
+                                    }
 
-                        while($data=mysqli_fetch_array($query)){
+                                    //############## DEFINO UN MAXIMO DE ELEMENTOS POR PAGINA ##############
+                                    $cantidadMaximaElementosPagina = 4;
+                                    
+                                    //############## CALCULO VALORES PARA LA PAGINACION ##############
+                                    $offset = ($paginaNro - 1) * $cantidadMaximaElementosPagina;
+                                    $paginaAnterior = $paginaNro - 1;
+                                    $paginaSiguiente = $paginaNro + 1;
+                                
+                                    //############## REALIZO LA CONSULTA PARA SABER CUANTOS ELEMENTOS HAY EN TOTAL ##############
+                                    $sentencia = $mysqli->prepare("SELECT COUNT(*) as cantidad FROM clientes");
+                                    $sentencia->execute();
+                                    $resultado = $sentencia->get_result();
+                                    $fila = $resultado->fetch_assoc();
+
+                                    //############## GUARDO LA CANTIDAD TOTAL DE ELEMENTOS EN UNA VARIABLE ##############
+                                    $cantidadTotalElementos = $fila["cantidad"];
+
+                                    //############## CALCULO LA CANTIDAD DE PAGINAS QUE NECESITO ##############
+                                    $totalPaginas = ceil($cantidadTotalElementos / $cantidadMaximaElementosPagina);
+
+                                    //############## REALIZO LA CONSULTA PARA OBTENER SOLO LOS ELEMENTOS DE LA PAGINA ACTUAL ##############
+                                   
+                                    $sentencia = $mysqli ->prepare("SELECT *FROM clientes LIMIT $offset, $cantidadMaximaElementosPagina");
+                                     //############## REALIZO LA CONSULTA PARA OBTENER SOLO LOS ELEMENTOS DE LA PAGINA ACTUAL ##############
+                                   
+                                    $sentencia->execute();
+                                    $resultado = $sentencia->get_result();
+                                    $fila = $resultado->fetch_assoc();
+                                  
+                                    while($fila)
+                                    {         ?>
+                                              <tr>  
+                                              <?php
+                                           
+                                              echo "<td scope='row'>".$fila['idclientes']."</td>
+                                                    <td>".utf8_encode($fila['nombreyap'])."</td>
+                                                    <td>".$fila['telefono']."</td>
+                                                    <td>".$fila['email']."</td>
+                                                    <td>".utf8_encode($fila['direccion'])."</td>";
+                                                                                    ?>
+                                                    <td>
+                                                    <div class="btn-toolbar" role="toolbar">
+                                                       <div class="btn-group mr-5" role="group">
+                                                          <button type='button' class="btn btn-outline-warning my-2 my-sm-0"> 
+                                                          <?php
+                                                          echo "<a class='\page-link\' href=editarclientes.php?id=".$fila['idclientes'].">Editar</a>
+                                                          </button>";
+                                                          ?> 
+                                                       </div>
+                                                       <div class="btn-group mr-5" role="group">
+                                                          <button type='button' class="btn btn-outline-success my-2 my-sm-0"> 
+                                                          <?php
+                                                          echo "<a href=delete.php?&idclientes=".$fila['idclientes'].">Eliminar</a>";
+                                                          ?> </button>
+                                                       </div>
+                                                         
+                                                    </div>
+                                                   </td>
+                                                </tr>
+                                              <?php 
+                                              $fila = $resultado->fetch_assoc();
+                                    }
+
+                                    mysqli_close($mysqli);
+                                ?>
+                            </tbody>
+                        </table>
+                   </div><!--FIN DIV TABLE RESPONSIVE-->
+                   <!--PAGINACION -->
+                   <div style='padding: 8px 20px 0px; border-top: dotted 1px #CCC;'>
+                        <strong>Pagina <?php echo $paginaNro." de ".$totalPaginas; ?></strong>
+                   </div>
+                   <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                        <?php 
+                             if($paginaNro > 1)
+                             { ?>
+                                <li class="page-item">
+                                   <?php
+                                   echo "<a class='page-link' href='?pagina_nro=1'>&lsaquo;&lsaquo;</a>";
+                                   ?>
+                                </li><?php
+                             } 
                         ?>
-                       <tr>
-			        <td><?php echo $data["nombreyap"];?></td>
-				<td><?php echo $data["dni"];?></td>
-				<td><?php echo $data["telefono"];?></td>
-				<td><?php echo $data["email"];?></td>
-				<td><?php echo $data["direccion"];?></td>
-				<td>
-				<a class="btn btn-success" href="editarclientes.php?id=<?php echo $data["idclientes"]?>">Editar</a>
-				<a class="btn btn-danger" href="delete.php?idclientes=<?php echo $data["idclientes"]?>">Eliminar</a>
-				</td>
-		      </tr>
-                      <?php
-                      }
-                      ?>
-                 </table>
-            </div><!--FIN DIV TABLE RESPONSIVE-->
-       <div style='padding: 8px 20px 0px; border-top: dotted 1px #CCC;'>
-            <strong>Pagina <?php echo $paginaNro." de ".$totalPaginas; ?></strong>
-        </div>
-        <nav aria-label="Page navigation example">
-        <ul class="pagination">
-            <?php 
-                if($paginaNro > 1)
-                { ?>
-                    <li class="page-item">
-                          <?php
-                    echo "<a class='page-link' href='?pagina_nro=1'>&lsaquo;&lsaquo;</a>";
-                    ?>
-                    </li><?php
-                } 
-            ?>
-            
-            <li class="page-item">
-                <a class="page-link"<?php if($paginaNro > 1){ echo "href='?pagina_nro=$paginaAnterior'"; } ?>>&lsaquo;</a>
-            </li>
-            
-            <li class="page-item">
-                <a class="page-link"<?php if($paginaNro < $totalPaginas) { echo "href='?pagina_nro=$paginaSiguiente'";} ?>>&rsaquo;</a>
-            </li>
-        
-            <?php 
-                if($paginaNro < $totalPaginas)
-                {
-                    ?>
-                    <li class="page-item">
-                        <?php
-                    echo "<a class='page-link' href='?pagina_nro=$totalPaginas'>&rsaquo;&rsaquo;</a>";
-                    ?>
-                    </li>
-                <?php
-                } 
-            ?>
-        </ul>
-        </nav>
-    </div>
-    </div>
-       <?php
+                    
+                                <li class="page-item">
+                                    <a class="page-link"<?php if($paginaNro > 1){ echo "href='?pagina_nro=$paginaAnterior'"; } ?>>&lsaquo;</a>
+                                </li>
+                    
+                               <li class="page-item">
+                                <a class="page-link"<?php if($paginaNro < $totalPaginas) { echo "href='?pagina_nro=$paginaSiguiente'";} ?>>&rsaquo;</a>
+                               </li>
+                
+                               <?php 
+                               if($paginaNro < $totalPaginas)
+                               {
+                               ?>
+                              <li class="page-item">
+                                 <?php
+                                 echo "<a class='page-link' href='?pagina_nro=$totalPaginas'>&rsaquo;&rsaquo;</a>";
+                                 ?>
+                              </li>
+                             <?php
+                             } 
+                            ?>
+                        </ul>
+                    </nav>
+            </div> <!--fin de <div class="panel panel_default"> -->     
+           
+        </div><!--fin div class content-->
+     </div><!--fin div class conteiner-->  
+<?php
 include("pie.php");
-?>
 ?>
