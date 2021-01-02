@@ -1,5 +1,5 @@
 <?php include("conectar3.php");
-$pagina="Listar reservas";
+$pagina="Listar clientes";
 include("head.php");
 include("menu.php");
 ?>
