@@ -40,5 +40,6 @@ include("menu.php");
             ?>
         </table>
             </div>
-</body>
-</html>
+      <?php
+include("pie.php");
+?>
