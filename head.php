@@ -30,7 +30,20 @@
             right: 0;
             z-index: 1;
         }
+
+        label {
+            margin-bottom: 0.1em;
+            margin-top: 0.1em;
+        }
+        .container { margin: 50px auto; }
+    
         
  	</style>
+    <script type="text/javascript">
+        let form = new Validation("registrocliente");
+        // Validation Functions
+        form.requireText("nombre", 5, 20, [" "], []);
+        form.requireEmail("email", 4, 30, [" "], []);
+    </script>
  
 </head>
