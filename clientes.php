@@ -13,15 +13,18 @@ include("menu.php");
             </div>
 	<h2>Clientes</h2>
         <hr />
-        <table class="table table-bordered">
-            <tr>
-                <th>Nombre</th>
-                <th>DNI</th>
-                <th>Número de teléfono</th>
-                <th>Email</th>
-                <th>Dirección</th>
-                <th></th>
-            </tr>
+  <div class="table-responsive">
+           <table class="table table-sm table-condensed table-bordered table-hover">
+		<thead>
+		<tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">DNI</th>
+               <th scope="col">Número de teléfono</th>
+                <th scope="col">Email</th>
+                <th scope="col">Dirección</th>
+                <th scope="col">Opciones</th>
+             </tr>
+            </thead>
             <?php
             $query=mysqli_query($mysqli, "SELECT * FROM uv028960_reservas.clientes;");
             $resultado =mysqli_num_rows($query);
