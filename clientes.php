@@ -3,10 +3,14 @@ $pagina="Listar clientes";
 include("head.php");
 include("menu.php");
 ?>
-  
-    <div class="container">
-        <h1>Lista de clientes</h1> 
-        <a href="addclientes.php" class="btn btn-primary">Agregar cliente</a>
+  <div class="container">
+		<div class="content">
+       <div class="panel panel_default">      
+
+            <div class="pull-right">
+                <a href="addclientes.php" class="btn btn-sm btn-dark">AGREGAR SERVICIO</a>
+                <!--<button type="button" class="btn btn-warning"><a href="add.php">AGREGAR SERVICIO</a></button>-->
+            </div>
         <table class="table table-bordered">
             <tr>
                 <th>Nombre</th>
@@ -17,7 +21,6 @@ include("menu.php");
                 <th></th>
             </tr>
             <?php
-            include 'conectar3.php';
             $query=mysqli_query($mysqli, "SELECT * FROM uv028960_reservas.clientes;");
             $resultado =mysqli_num_rows($query);
 
@@ -40,6 +43,8 @@ include("menu.php");
             ?>
         </table>
             </div>
+      </div>
+    </div>
       <?php
 include("pie.php");
 ?>
