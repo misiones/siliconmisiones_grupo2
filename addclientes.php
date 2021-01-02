@@ -5,19 +5,39 @@ include("menu.php");
 ?>
   
   <div class="container">   
-                
+                <?php
+             if(isset($_POST['add'])){
+               // $idclientes     = mysqli_real_escape_string($mysqli,(strip_tags($_POST["idclientes"],ENT_QUOTES))); 
+                $nombreyap      = mysqli_real_escape_string($mysqli,(strip_tags($_POST["nombreyap"],ENT_QUOTES))); 
+                $dni            = mysqli_real_escape_string($mysqli,(strip_tags($_POST["dni"],ENT_QUOTES))); 
+                $telefono       = mysqli_real_escape_string($mysqli,(strip_tags($_POST["telefono"],ENT_QUOTES))); 
+                $email          = mysqli_real_escape_string($mysqli,(strip_tags($_POST["email"],ENT_QUOTES))); 
+                $direccion      = mysqli_real_escape_string($mysqli,(strip_tags($_POST["direccion"],ENT_QUOTES))); 
+
+ 
+                $ser = mysqli_query($mysqli, "SELECT * FROM clientes WHERE idclientes='$idclientes'");
+                if(mysqli_num_rows($ser) == 0){
+                       $insert = mysqli_query($mysqli, "INSERT INTO clientes(idclientes, nombreyap, dni, telefono, email, direccion)
+                              VALUES(NULL,'$nombreyap','$dni','$telefono,'$email','$direccion')") or die(mysqli_error());
+                        if($insert){
+                          echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Los datos han sido guardados con éxito.</div>';
+                        }else{
+                          echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. No se pudo guardar los datos !</div>';
+                        }
+           
+                }else{
+                echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. Ese código existe!</div>';
+                }
+            }
+            ?>
             <div class="row justify-content-center">
               <div class="col-6 p-3 bg-white shadow-lg rounded">
                 <form id="registrocliente" method="post">
                   <h3>Registro de Clientes</h3>
                   <hr>
-                  <div class="form-group">
-                    <label for="validationServer01">Id</label>
-                     <input type="text" disabled class="form-control" id="idcliente" value="<?php echo $idcliente; ?>">
-                 </div>
                  <div class="form-group">
                     <label for="validationServer02">Nombre y Apellido</label> 
-                     <input type="text" class="form-control" id="nombre" placeholder="Nombre y Apellido" required>
+                     <input type="text" class="form-control" id="nombreyap" placeholder="Nombre y Apellido" required>
                  </div>
                 <div class="form-group">
                     <label for="validationServer03">DNI</label>
@@ -35,8 +55,13 @@ include("menu.php");
                     <label for="validationServer06">Dirección</label>
                     <input type="text" class="form-control" id="direccion" placeholder="Dirección" required>
                 </div>
-
-               <button class="btn btn-primary" type="submit">Enviar</button>
+               <div class="form-group">
+                   <label class="col-sm-3 control-label">&nbsp;</label>
+                   <div class="col-sm-6">
+                     <input type="submit" name="add" class="btn btn-sm btn-primary" value="Guardar datos">
+                     <button><a href="clientes.php" class="btn btn-sm btn-danger">Cancelar</a></button>
+                  </div>
+               </div>
              </form>
             </div>
        </div>
