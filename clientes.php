@@ -9,6 +9,26 @@ include("menu.php");
                         <div class="pull-right">
                              <a href="addclientes.php" class="btn btn-sm btn-dark">AGREGAR CLIENTE</a>
                         </div>
+                        <?php
+/////////////////////////////////////////eliminar//////////////////////////////////////////////////////////////
+                         
+               if(isset($_GET['action']) == 'delete'){
+                  $id_delete = intval($_GET['idclientes']);
+                  $query = mysqli_query($mysqli, "SELECT * FROM clientes WHERE idclientes='$id_delete'");
+                  if(mysqli_num_rows($query) == 0){
+                  echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> No se encontraron datos.</div>';
+                   }else{
+                   $delete = mysqli_query($mysqli, "DELETE FROM clientes WHERE idclientes='$id_delete'");
+                   if($delete){
+                   echo '<div class="alert alert-primary alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>  Los datos han sido eliminados correctamente.</div>';
+                   }else{
+                   echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Error, no se pudo eliminar los datos.(hay tablas relacionadas)</div>';
+                   }
+                  }
+                }
+             
+/////////////////////////////////////////////////////////////fin eliminar/////////////////////////////////////
+ ?>
         	       <h2>Clientes</h2>
                        <hr />
                     <div class="table-responsive">
@@ -71,11 +91,11 @@ include("menu.php");
                                               <?php
                                            
                                               echo "<td scope='row'>".$fila['idclientes']."</td>
-                                                    <td>".utf8_encode($fila['nombreyap'])."</td>
+                                                    <td>".$fila['nombreyap']."</td>
                                                     <td>".$fila['dni']."</td>
                                                     <td>".$fila['telefono']."</td>
                                                     <td>".$fila['email']."</td>
-                                                    <td>".utf8_encode($fila['direccion'])."</td>";
+                                                    <td>".$fila['direccion']."</td>";
                                                                                     ?>
                                                     <td>
                                                     <div class="btn-toolbar" role="toolbar">
@@ -87,9 +107,10 @@ include("menu.php");
                                                           ?> 
                                                        </div>
                                                        <div class="btn-group mr-5" role="group">
-                                                          <button type='button' class="btn btn-outline-success my-2 my-sm-0"> 
-                                                          <?php
-                                                          echo "<a href=delete.php?&idclientes=".$fila['idclientes'].">Eliminar</a>";
+                                                        <button type='button' class="btn btn-outline-success my-2 my-sm-0"> 
+                                                      <?php
+                                                         echo "<a href=clientes.php?action=delete&idclientes=".$fila['idclientes'].">Eliminar</a>";
+                                                         // echo "<a href=delete.php?&idclientes=".$fila['idclientes'].">Eliminar</a>";
                                                           ?> </button>
                                                        </div>
                                                          
