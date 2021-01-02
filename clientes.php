@@ -15,6 +15,7 @@ include("menu.php");
                         <table class="table table-sm table-condensed table-bordered table-hover">
                 		  <thead>
                 			<tr>
+                                <th scope="col">Id</th>
                 				<th scope="col">Nombre</th>
                 				<th scope="col">DNI</th>
                 				<th scope="col">Número de teléfono</th>
@@ -71,6 +72,7 @@ include("menu.php");
                                            
                                               echo "<td scope='row'>".$fila['idclientes']."</td>
                                                     <td>".utf8_encode($fila['nombreyap'])."</td>
+                                                    <td>".$fila['dni']."</td>
                                                     <td>".$fila['telefono']."</td>
                                                     <td>".$fila['email']."</td>
                                                     <td>".utf8_encode($fila['direccion'])."</td>";
