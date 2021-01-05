@@ -42,7 +42,7 @@
     <script type="text/javascript">
         let form = new Validation("registrocliente");
         // Validation Functions
-        form.requireText("nombre", 5, 20, [" "], []);
+        form.requireText("nombre", 5, 20, [], []);
         form.requireEmail("email", 4, 30, [" "], []);
     </script>
  

@@ -12,7 +12,7 @@ include("menu.php");
                 $telefono       = mysqli_real_escape_string($mysqli,(strip_tags($_POST["telefono"],ENT_QUOTES))); 
                 $email          = mysqli_real_escape_string($mysqli,(strip_tags($_POST["email"],ENT_QUOTES))); 
                 $direccion      = mysqli_real_escape_string($mysqli,(strip_tags($_POST["direccion"],ENT_QUOTES))); 
-                $cek = mysqli_query($mysqli, "SELECT * FROM clientes WHERE idclientes='$idclientes'");
+                $cek = mysqli_query($mysqli, "SELECT * FROM clientes WHERE 'idclientes = $idclientes'");
                 if(mysqli_num_rows($cek) == 0){
                 $insert = mysqli_query($mysqli, "INSERT INTO clientes(nombreyap, dni, telefono, email, direccion)
                 VALUES('$nombreyap', '$dni', '$telefono', '$email', '$direccion')") or die(mysqli_error());
@@ -36,19 +36,19 @@ include("menu.php");
                   <hr>
                  <div class="form-group">
                     <label for="validationServer02">Nombre y Apellido</label> 
-                     <input type="text" name="nombreyap" class="form-control" id="nombreyap" placeholder="Nombre y Apellido" required>
+                     <input type="text" name="nombreyap" class="form-control" id="nombreyap" placeholder="Nombre y Apellido" required pattern="^[A-Za-z ]*$" title="No permite números ni caracteres especiales.">
                  </div>
                 <div class="form-group">
                     <label for="validationServer03">DNI</label>
-                    <input type="text" name="dni" class="form-control" id="dni" placeholder="DNI"  required>
+                    <input type="text" name="dni" class="form-control" id="dni" placeholder="DNI" required pattern="^[0-9]+" title="No se permiten letras ni caracteres especiales.">
                 </div>
                  <div class="form-group">
                     <label for="validationServer04">Email</label>
-                    <input  id="email" name="email" type="email" class="form-control" placeholder="ejempo@gmail.com" required>
+                    <input  id="email" name="email" type="email" class="form-control" placeholder="ejempo@gmail.com" required pattern="^[A-Za-z0-9._-%+]+@[A-Za-z0-9._-%+]+\.[a-zA-Z]{5,}$" title="Ingrese un correo válido.">
                 </div>
                 <div class="form-group">
                     <label for="validationServer05">Teléfono</label>
-                    <input type="text" name="telefono" class="form-control" id="telefono" placeholder="Teléfono" required>
+                    <input type="text" name="telefono" class="form-control" id="telefono" placeholder="Teléfono" required pattern="^[0-9]" title="No se permiten letras ni caracteres especiales.">
                 </div>
                 <div class="form-group">
                     <label for="validationServer06">Dirección</label>
